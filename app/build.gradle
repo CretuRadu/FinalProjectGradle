@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.example.xayru.finalprojectgradle"
+        minSdkVersion 25
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        productFlavors {
+            free {
+                applicationId "com.example.xayru.finalprojectgradle.free"
+                buildConfigField 'boolean', 'HAS_ADS', "true"
+            }
+
+            paid {
+                applicationId "com.example.xayru.finalprojectgradle.paid"
+                buildConfigField 'boolean', 'HAS_ADS', "false"
+
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        free {
+            minSdkVersion 25
+        }
+        paid {
+            minSdkVersion 25
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'cz.msebera.android:httpclient:4.4.1.1'
+    compile project(path: ':backend', configuration: 'android-endpoints')
+    compile project(path: ':jokeshower')
+    compile project(path: ':jokesbyjava')
+    compile 'com.android.support:appcompat-v7:27.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
+    compile 'com.google.api-client:google-api-client:1.23.0'
+    compile 'com.google.api-client:google-api-client-android:1.23.0'
+    compile 'com.google.android.gms:play-services-ads:11.8.0'
+    testCompile 'junit:junit:4.12'
+}
